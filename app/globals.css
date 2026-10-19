@@ -1,8 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: dark;
+  --background: #12141d;
+  --foreground: #f8fafc;
+  --surface: #1e212b;
+  --muted: #94a3b8;
+  --accent: #4a90e2;
+  --highlight: #00d4ff;
 }
 
 @theme inline {
@@ -12,15 +17,195 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
 }
 
 body {
+  min-height: 100%;
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), sans-serif;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.014) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.014) 1px, transparent 1px),
+    radial-gradient(ellipse at 50% -28%, rgba(74, 144, 226, 0.14), transparent 56%);
+  background-size: 44px 44px, 44px 44px, auto;
+  background-position: center top;
+  background-repeat: repeat, repeat, no-repeat;
+}
+
+button,
+a,
+input {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--highlight);
+  outline-offset: 3px;
+}
+
+.brand-mark {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 1px solid rgba(0, 212, 255, 0.24);
+  border-radius: 9px;
+  background: rgba(0, 212, 255, 0.08);
+  color: var(--highlight);
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--highlight);
+  box-shadow: 0 0 9px rgba(0, 212, 255, 0.56);
+}
+
+.search-panel {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  background: rgba(30, 33, 43, 0.9);
+  box-shadow: 0 14px 42px rgba(0, 0, 0, 0.15);
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.search-panel:focus-within {
+  border-color: rgba(74, 144, 226, 0.58);
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.09);
+}
+
+.primary-button {
+  background: var(--accent);
+  box-shadow: 0 3px 12px rgba(74, 144, 226, 0.18);
+}
+
+.export-button {
+  display: inline-flex;
+  height: 34px;
+  align-items: center;
+  gap: 7px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  padding: 0 10px;
+  background: rgba(255, 255, 255, 0.025);
+  color: #cbd5e1;
+  font-size: 11px;
+  font-weight: 500;
+  transition: background 140ms ease, border-color 140ms ease, color 140ms ease;
+}
+
+.export-button:hover:not(:disabled) {
+  border-color: rgba(74, 144, 226, 0.45);
+  background: rgba(74, 144, 226, 0.1);
+  color: #f8fafc;
+}
+
+.export-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.table-heading {
+  padding: 13px 20px;
+  color: #64748b;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.075em;
+  text-transform: uppercase;
+}
+
+.lead-row {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.055);
+  animation: row-enter 360ms both;
+}
+
+.lead-row:last-child {
+  border-bottom: 0;
+}
+
+.lead-row:hover {
+  background: rgba(255, 255, 255, 0.018);
+}
+
+.business-icon {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid rgba(74, 144, 226, 0.18);
+  border-radius: 7px;
+  background: rgba(74, 144, 226, 0.07);
+  color: #76aef0;
+}
+
+.row-icon-button {
+  display: grid;
+  width: 27px;
+  height: 27px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  color: #64748b;
+  transition: color 140ms ease, background 140ms ease, border-color 140ms ease;
+}
+
+.row-icon-button:hover {
+  border-color: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.06);
+  color: #f8fafc;
+}
+
+.whatsapp-button:hover {
+  border-color: rgba(0, 212, 255, 0.18);
+  background: rgba(0, 212, 255, 0.08);
+  color: var(--highlight);
+}
+
+.maps-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #76aef0;
+  font-size: 12px;
+  font-weight: 500;
+  transition: color 140ms ease;
+}
+
+.maps-link:hover {
+  color: var(--highlight);
+}
+
+.loader {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.38);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 700ms linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes row-enter {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
 }
